@@ -3,7 +3,8 @@
 const inquirer = require("inquirer");
 const chalk = require("chalk");
 const shell = require("shelljs");
-var ncp = require('ncp').ncp;
+const ncp = require('ncp').ncp;
+const fs = require('fs');
 
 const askQuestions = () => {
     const questions = [
@@ -41,6 +42,9 @@ const run = async () => {
     
     if(OPTION == "Component") {
       inprogress(OPTION)
+      if (!fs.existsSync('packages')){
+        fs.mkdirSync('packages');
+      }
       ncp("templates/component","packages/dxp-"+NAME, function (err) {
         if(err) {
           return console.log(err)
