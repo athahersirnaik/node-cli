@@ -42,7 +42,13 @@ const run = async () => {
     
     if(OPTION == "Component") {
       inprogress(OPTION)
-      if (!fs.existsSync('packages')){
+      
+      if(!fs.existsSync('templates/component') ) {
+        console.log(
+          chalk.black.bgYellow(`You don't have source templates directory, please make sure you have templates/component folder in current working directory.`)
+        )
+        return;
+      }else if (!fs.existsSync('packages')){
         fs.mkdirSync('packages');
       }
       ncp("templates/component","packages/dxp-"+NAME, function (err) {
